@@ -1,0 +1,17 @@
+workflows:
+  isignapp-ios:
+    name: ISignApp iOS Build (No Signing)
+    environment:
+      xcode: latest
+      vars:
+        APP_SCHEME: "ISignApp"
+    scripts:
+      - name: Build .ipa (no signing)
+        script: |
+          xcodebuild clean -scheme "$APP_SCHEME" -sdk iphoneos -configuration Release
+          xcodebuild archive -scheme "$APP_SCHEME" -sdk iphoneos -archivePath $HOME/build/ISignApp.xcarchive
+          xcodebuild -exportArchive -archivePath $HOME/build/ISignApp.xcarchive \
+            -exportPath $HOME/build/Export \
+            -exportOptionsPlist exportOptions.plist
+    artifacts:
+      - build/Export/*.ipa
