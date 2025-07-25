@@ -6,9 +6,10 @@ workflows:
       vars:
         APP_SCHEME: "ISignApp"
     scripts:
-      - name: Build .ipa (no signing)
-        script: |
-          xcodebuild clean -scheme "$APP_SCHEME" -sdk iphoneos -configuration Release
+      - scripts:
+  - name: Build (debug, no signing)
+    script: |
+      xcodebuild clean build -scheme "$APP_SCHEME" -sdk iphonesimulator -configuration Debug
           xcodebuild archive -scheme "$APP_SCHEME" -sdk iphoneos -archivePath $HOME/build/ISignApp.xcarchive
           xcodebuild -exportArchive -archivePath $HOME/build/ISignApp.xcarchive \
             -exportPath $HOME/build/Export \
