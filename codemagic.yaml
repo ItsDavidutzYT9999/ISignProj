@@ -1,6 +1,6 @@
 workflows:
-  isignapp-simulator:
-    name: ISignApp Simulator Build
+  isignapp-ios:
+    name: ISignApp iOS Build (No Signing)
     environment:
       xcode: latest
       vars:
