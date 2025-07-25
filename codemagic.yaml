@@ -1,18 +1,17 @@
 workflows:
-  isignapp-ios:
-    name: ISignApp iOS Build (No Signing)
+  isignapp-simulator:
+    name: ISignApp Simulator Build
     environment:
       xcode: latest
       vars:
         APP_SCHEME: "ISignApp"
     scripts:
-      - scripts:
-  - name: Build (debug, no signing)
-    script: |
-      xcodebuild clean build -scheme "$APP_SCHEME" -sdk iphonesimulator -configuration Debug
-          xcodebuild archive -scheme "$APP_SCHEME" -sdk iphoneos -archivePath $HOME/build/ISignApp.xcarchive
-          xcodebuild -exportArchive -archivePath $HOME/build/ISignApp.xcarchive \
-            -exportPath $HOME/build/Export \
-            -exportOptionsPlist exportOptions.plist
+      - name: Build .app for Simulator (no signing)
+        script: |
+          xcodebuild clean build \
+            -scheme "$APP_SCHEME" \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -derivedDataPath build/
     artifacts:
-      - build/Export/*.ipa
+      - build/Build/Products/Debug-iphonesimulator/*.app
